@@ -8,7 +8,7 @@ author_description: "Data science major at BYU."
 
 url: https://ericanti.github.io
 baseurl: /my-blog
-header_image: /assets/img/1115096
+header_image: "/assets/img/1115096"
 
 ## Add your social media user names.  Github is required, the rest are optional
 social:
