@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to Use Multiple Linear Regression in Python to Make Predictions"
-date: 2025-02-01
+date: 2025-02-02
 description: "Learn how to build and utilize a multiple linear regression model using Python and real data."
 image: "/assets/img/linear_regression.jpg"
 ---
@@ -169,7 +169,7 @@ plt.show()
 	<figcaption>Figure 4. - Residuals</figcaption>
 </figure>
 
-It looks like the residuals are centered around zero, whicih is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
+It looks like the residuals are centered around zero, which is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
 
 **Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important.
 
