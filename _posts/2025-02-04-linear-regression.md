@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to Use Multiple Linear Regression in Python to Make Predictions"
-date: 2025-02-04
+date: 2025-02-01
 image: "/assets/img/linear_regression.jpg"
 ---
 
