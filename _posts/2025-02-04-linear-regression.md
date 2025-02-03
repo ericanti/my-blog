@@ -2,6 +2,7 @@
 layout: post
 title:  "How to Use Multiple Linear Regression in Python to Make Predictions"
 date: 2025-02-01
+description: "Learn how to build and utilize a multiple linear regression model using Python and real data."
 image: "/assets/img/linear_regression.jpg"
 ---
 
@@ -76,7 +77,10 @@ plt.ylabel('Charges ($)')
 plt.tight_layout()
 plt.show()
 ```
-![Smoker vs Charges](/assets/img/Figure_1.jpeg)
+<figure>
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_1.jpeg" alt=""> 
+	<figcaption>Figure 1. - Smoker vs Charges</figcaption>
+</figure>
 
 A clear relationship between smoking status and insurance charges is visible! Smokers tend to have higher insurance charges.
 
@@ -94,7 +98,10 @@ sns.heatmap(insurance_df.corr(), annot = True, cmap = 'coolwarm', fmt = '.2f')
 plt.title('Feature Correlation Matrix')
 plt.show()
 ```
-![Correlation Matrix](/assets/img/Figure_2.jpeg)
+<figure>
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_2.jpeg" alt=""> 
+	<figcaption>Figure 2. - Correlation Matrix</figcaption>
+</figure>
 
 A higher correlation between `smoker` and `charges` is visible, which confirms our earlier observation. The features with lower correlation values are less influential.
 
@@ -137,7 +144,10 @@ plt.ylabel('Predicted Charges ($)')
 plt.title('Actual vs Predicted Insurance Charges')
 plt.show()
 ```
-![Actual vs Predicted](/assets/img/Figure_3.jpeg)
+<figure>
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_3.jpeg" alt=""> 
+	<figcaption>Figure 3. - Actual vs Predicted</figcaption>
+</figure>
 
 Not bad! The model seems to be doing a decent job of predicting insurance charges especially for lower charges. The points are close to the red line, indicating that the model is making reasonable predictions.
 
@@ -154,7 +164,10 @@ plt.xlabel('Prediction Error ($)')
 plt.title('Residual Distribution')
 plt.show()
 ```
-![Residuals](/assets/img/Figure_5.jpeg)
+<figure>
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_5.jpeg" alt=""> 
+	<figcaption>Figure 4. - Residuals</figcaption>
+</figure>
 
 It looks like the residuals are centered around zero, whicih is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
 
@@ -203,7 +216,10 @@ sns.barplot(x = 'Weight', y = 'Feature', data = coefficients, palette = 'viridis
 plt.title('Feature Impact on Insurance Charges')
 plt.show()
 ```
-![Feature Importance](/assets/img/Figure_4.jpeg)
+<figure>
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_4.jpeg" alt=""> 
+	<figcaption>Figure 5. - Feature Importance</figcaption>
+</figure>
 
 As expected, `smoker` has the highest impact on insurance charges. `Children`, `Age` and `BMI` also play significant roles. As seen in the heat map, `sex` has the least impact on charges. While this graph essentially shows the same information as the heatmap, it's a more intuitive way to understand the impact of each feature.
 
