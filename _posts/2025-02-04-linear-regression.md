@@ -139,7 +139,7 @@ plt.show()
 ```
 ![Actual vs Predicted](/assets/img/Figure_3.jpeg)
 
-Not bad! The model seems to be doing a decent job of predicting insurance charges.
+Not bad! The model seems to be doing a decent job of predicting insurance charges especially for lower charges. The points are close to the red line, indicating that the model is making reasonable predictions.
 
 ### Residual Analysis
 
