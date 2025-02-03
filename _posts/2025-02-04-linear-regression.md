@@ -178,7 +178,7 @@ predicted_charge = model.predict(data_predict)
 print(f'Predicted charge: ${predicted_charge[0]:,.2f}')
 ```
 
-**Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing) if you haven't been following along already! (Create a copy to edit).
+**Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing) if you haven't been following along already!
 
 ## 7. Interpreting Results 🧠
 
