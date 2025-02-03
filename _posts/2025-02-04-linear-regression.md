@@ -1,0 +1,222 @@
+---
+layout: post
+title:  "How to Use Multiple Linear Regression in Python to Make Predictions"
+date: 2025-02-04
+image: "/assets/img/linear_regression.jpg"
+---
+
+## Introduction: Using Real Data to Make Predictions
+Have you ever wondered about how data science can be used to tackle real-world problems? In this hands-on tutorial, we'll take a look into the world of predictive modeling by building a multiple linear regression model to estimate healthcare costs. Using Python and real data from [This Insurance Dataset](https://www.kaggle.com/datasets/mirichoi0218/insurance), we'll explore how various factors might influence insurance premiums. This guide aims to bridge the gap between statistics and practical machine learning applications.
+
+**What you'll learn:**
+
+- How to prepare data for regression analysis
+- How to visualize relationships between variables
+- How to build and interpret a predictive model
+- How to evaluate model performance
+
+## 1. Setting Up Your Python Environment 🐍
+
+We'll use these key libraries:
+
+```python
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+```
+
+## 2. Preparing the Insurance Data 📊
+
+First, load and preprocess the data:
+(Here, we're assuming you've downloaded the dataset as `insurance.csv`. Adjust the path as needed.)
+
+```python
+insurance_df = pd.read_csv('C:/Users/your_username/wherever_you_put/the_dataset/insurance.csv')
+```
+
+Simplify by removing region:
+
+```python
+insurance_df = insurance_df.drop(columns = 'region')
+```
+
+Convert categorical variables to numerical:
+
+```python
+insurance_df['sex'] = insurance_df['sex'].astype('category').cat.codes
+insurance_df['smoker'] = insurance_df['smoker'].astype('category').cat.codes
+```
+
+**Key Transformations:**
+
+- Removed `region` for simplicity
+- Encoded `sex` (0 = female, 1 = male)
+- Encoded `smoker` (0 = no, 1 = yes)
+
+**Note:** If you attempt to recreate this code on a different dataset, ensure that you adjust the encoding for categorical variables accordingly (or skip this step if your data is already numerical).
+
+## 3. Exploratory Data Analysis (EDA) 🔍
+
+### Smoking vs. Charges Relationship
+
+For a quick EDA, let's visualize the relationship between smoking status and insurance charges.
+
+```python
+sns.lmplot(x = 'smoker', y = 'charges', data = insurance_df,
+line_kws = {'color': 'red'}, height = 6, aspect = 1.5)
+plt.title('Smoking Status vs Insurance Charges')
+plt.xlabel('Smoker (0=No, 1=Yes)')
+plt.ylabel('Charges ($)')
+plt.tight_layout()
+plt.show()
+```
+![Smoker vs Charges](/assets/img/Figure_1.jpeg)
+
+A clear relationship between smoking status and insurance charges is visible! Smokers tend to have higher insurance charges.
+
+### Correlation Heatmap
+
+Let's also check the heatmap to see the correlation between features. This will help us understand which variables are most influential.
+
+**Pro Tip:** Mess around with these settings to customize your heatmap!
+
+```python
+plt.figure(figsize = (10,6))
+sns.heatmap(insurance_df.corr(), annot = True, cmap = 'coolwarm', fmt = '.2f')
+plt.title('Feature Correlation Matrix')
+plt.show()
+```
+![Correlation Matrix](/assets/img/Figure_2.jpeg)
+
+A higher correlation between `smoker` and `charges` is visible, which confirms our earlier observation. The features with lower correlation values are less influential.
+
+## 4. Building the Regression Model ⚙️
+
+Now, let's build a linear regression model to predict insurance charges based on the available features. Here we can specify how much data we use to train the model and how much of the data we use to test the model. This is done using the `train_test_split` function from `sklearn.model_selection` and specifying the `test_size` parameter. Here `random_state` is set to 42 to ensure reproducibility for those following along.
+
+### Train-Test Split
+
+```python
+X = insurance_df.drop(columns = 'charges')
+y = insurance_df['charges']
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size = 0.2, random_state = 42)
+```
+
+### Model Training
+
+Here's how to train the model. Here the 'fit' method is used to train the model on the training data. It essentially estimates the coefficients of the linear regression model.
+
+```python
+model = LinearRegression()
+model.fit(X_train, y_train)
+```
+
+## 5. Evaluating Model Performance 📈
+
+### Prediction Visualization
+
+Using a scatter plot, let's compare actual charges to predicted charges. With a good model, we would expect the points to fall close to the red line.
+
+```python
+predictions = model.predict(X_test)
+plt.figure(figsize = (10,6))
+plt.scatter(y_test, predictions, alpha = 0.5)
+plt.plot([y_test.min(), y_test.max()],
+[y_test.min(), y_test.max()], 'r--')
+plt.xlabel('Actual Charges ($)')
+plt.ylabel('Predicted Charges ($)')
+plt.title('Actual vs Predicted Insurance Charges')
+plt.show()
+```
+![Actual vs Predicted](/assets/img/Figure_3.jpeg)
+
+Not bad! The model seems to be doing a decent job of predicting insurance charges.
+
+### Residual Analysis
+
+By plotting the residuals, we can check if our model is making systematic errors. Ideally, the residuals should be normally distributed around zero.
+
+```python
+residuals = y_test - predictions
+plt.figure(figsize = (10,6))
+sns.histplot(residuals, kde = True, bins = 25)
+plt.axvline(0, color = 'red', linestyle = '--')
+plt.xlabel('Prediction Error ($)')
+plt.title('Residual Distribution')
+plt.show()
+```
+![Residuals](/assets/img/residuals.png)
+
+It looks like the residuals are centered around zero, whicih is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
+
+**Model Score:**  
+`print(f'R² Score: {model.score(X_test, y_test):.3f}')`  
+Output: `R² Score: 0.781`
+This R² score indicates that our model explains 78.1% of the variance in the data.
+
+## 6. Making Predictions 🚀
+
+Let's predict charges for:
+- A 19-year-old female with a BMI of 27.9 who has no children and is a smoker.
+
+```python
+u_age = 19
+u_sex = 0 # 0 for female, 1 for male
+u_bmi = 27.9
+u_children = 0
+u_smoker = 1 # 0 for non-smoker, 1 for smoker
+data_predict = [[u_age, u_sex, u_bmi, u_children, u_smoker]]
+predicted_charge = model.predict(data_predict)
+print(f'Predicted charge: ${predicted_charge[0]:,.2f}')
+```
+
+**Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/)!
+
+## 7. Interpreting Results 🧠
+
+### Feature Importance
+
+This bar plot allows us to see which features have the most impact on insurance charges. It sorts the coefficients in descending order to show the most influential features.
+
+```python
+coefficients = pd.DataFrame({
+'Feature': X.columns,
+'Weight': model.coef_
+}).sort_values('Weight', ascending=False)
+plt.figure(figsize = (10,6))
+sns.barplot(x = 'Weight', y = 'Feature', data = coefficients, palette = 'viridis')
+plt.title('Feature Impact on Insurance Charges')
+plt.show()
+```
+![Feature Importance](/assets/img/Figure_4.jpeg)
+
+As expected, `smoker` has the highest impact on insurance charges. `Age` and `BMI` also play significant roles.
+
+## Next Steps & Challenges 💪
+
+**Want to improve the model? Try:**
+1. Adding polynomial features
+2. Testing regularization with [Ridge/Lasso Regression](https://scikit-learn.org/stable/modules/linear_model.html)
+3. Including interaction terms
+
+**Your Challenge:** Can you beat an R² score of 0.783? Share your results in the comments and how you achieved them!
+
+---
+
+## Conclusion & Resources
+
+You've now built a complete regression pipeline! For more advanced techniques, check out the resources below:
+
+- Explore [Scikit-learn's Linear Models](https://scikit-learn.org/stable/modules/linear_model.html)
+- Learn advanced EDA with [Seaborn Tutorials](https://seaborn.pydata.org/tutorial.html)
+- Practice with [Kaggle Notebooks](https://www.kaggle.com/code)
+
+**Found this helpful?** Share it with a classmate or [tweet about it](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/)!
+
+---
+
+**Dataset Source:** [Kaggle Insurance Dataset](https://www.kaggle.com/datasets/mirichoi0218/insurance)
