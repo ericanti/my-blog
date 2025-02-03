@@ -154,7 +154,7 @@ plt.xlabel('Prediction Error ($)')
 plt.title('Residual Distribution')
 plt.show()
 ```
-![Residuals](/assets/img/residuals.png)
+![Residuals](/assets/img/Figure_5.jpeg)
 
 It looks like the residuals are centered around zero, whicih is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
 
