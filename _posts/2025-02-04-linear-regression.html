@@ -144,10 +144,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exploratory-data-analysis-eda" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda">3. Exploratory Data Analysis (EDA) 🔍</h2>
-<p><strong>Note:</strong> We skip the data cleaning step since the dataset is clean. Always check for missing values and outliers in your data before proceeding. We also skip assumptions testing for brevity.</p>
+<p>Let’s explore the data to understand the relationships between variables. This will help us identify which features are most influential in predicting insurance charges.</p>
 <section id="smoking-vs.-charges-relationship" class="level3">
 <h3 class="anchored" data-anchor-id="smoking-vs.-charges-relationship">Smoking vs.&nbsp;Charges Relationship</h3>
-<p>For a quick EDA, let’s visualize the relationship between smoking status and insurance charges.</p>
+<p>Here, let’s visualize the relationship between smoking status and insurance charges using a scatter plot.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">'smoker'</span>, y <span class="op">=</span> <span class="st">'charges'</span>, data <span class="op">=</span> insurance_df,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>line_kws <span class="op">=</span> {<span class="st">'color'</span>: <span class="st">'red'</span>}, height <span class="op">=</span> <span class="dv">6</span>, aspect <span class="op">=</span> <span class="fl">1.5</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Smoking Status vs Insurance Charges'</span>)</span>
@@ -162,6 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>A clear relationship between smoking status and insurance charges is visible! Smokers tend to have higher insurance charges.</p>
+<p><strong>Note:</strong> We skip the data cleaning step since the dataset is clean. Always check for missing values and outliers in your data before proceeding. We also skip assumptions testing for brevity.</p>
 </section>
 <section id="correlation-heatmap" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-heatmap">Correlation Heatmap</h3>
@@ -236,25 +237,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>It looks like the residuals are centered around zero, whicih is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.</p>
+<p><strong>Note:</strong> If you see a pattern in the residuals, it may indicate that the model is missing something important.</p>
 <p><strong>Model Score:</strong><br>
 <code>print(f'R² Score: {model.score(X_test, y_test):.3f}')</code><br>
-Output: <code>R² Score: 0.781</code> This R² score indicates that our model explains 78.1% of the variance in the data.</p>
+Output: <code>R² Score: 0.781</code></p>
+<p>This R² score indicates that our model explains 78.1% of the variance in the data.</p>
 </section>
 </section>
 <section id="making-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="making-predictions">6. Making Predictions 🚀</h2>
 <p>Let’s predict charges for:</p>
 <ul>
-<li>A 19-year-old female with a BMI of 27.9 who has no children and is a smoker.</li>
+<li>A 50-year-old male with a BMI of 30.970 who has 3 children and is a non-smoker</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>u_age <span class="op">=</span> <span class="dv">19</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>u_sex <span class="op">=</span> <span class="dv">0</span> <span class="co"># 0 for female, 1 for male</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>u_bmi <span class="op">=</span> <span class="fl">27.9</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>u_children <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>u_smoker <span class="op">=</span> <span class="dv">1</span> <span class="co"># 0 for non-smoker, 1 for smoker</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>u_age <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>u_sex <span class="op">=</span> <span class="dv">1</span> <span class="co"># 0 for female, 1 for male</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>u_bmi <span class="op">=</span> <span class="fl">30.970</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>u_children <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>u_smoker <span class="op">=</span> <span class="dv">0</span> <span class="co"># 0 for non-smoker, 1 for smoker</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>data_predict <span class="op">=</span> [[u_age, u_sex, u_bmi, u_children, u_smoker]]</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>predicted_charge <span class="op">=</span> model.predict(data_predict)</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Predicted charge: $</span><span class="sc">{</span>predicted_charge[<span class="dv">0</span>]<span class="sc">:,.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Looks like we are predicting a charge of about $12,000 for this individual. Not bad! You can now make predictions for any combination of features.</p>
 <p><strong>Try This:</strong> Modify the input values using <a href="https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing">this Colab notebook</a> if you haven’t been following along already!</p>
 </section>
 <section id="interpreting-results" class="level2">
@@ -276,7 +280,7 @@ Output: <code>R² Score: 0.781</code> This R² score indicates that our model ex
 <figcaption>Feature Importance</figcaption>
 </figure>
 </div>
-<p>As expected, <code>smoker</code> has the highest impact on insurance charges. <code>Children</code>, <code>Age</code> and <code>BMI</code> also play significant roles.</p>
+<p>As expected, <code>smoker</code> has the highest impact on insurance charges. <code>Children</code>, <code>Age</code> and <code>BMI</code> also play significant roles. As seen in the heat map, <code>sex</code> has the least impact on charges. While this graph essentially shows the same information as the heatmap, it’s a more intuitive way to understand the impact of each feature.</p>
 </section>
 </section>
 <section id="next-steps-challenges" class="level2">
@@ -299,7 +303,7 @@ Output: <code>R² Score: 0.781</code> This R² score indicates that our model ex
 <li>Learn advanced EDA with <a href="https://seaborn.pydata.org/tutorial.html">Seaborn Tutorials</a></li>
 <li>Practice with <a href="https://www.kaggle.com/code">Kaggle Notebooks</a></li>
 </ul>
-<p><strong>Found this helpful?</strong> Share it with a classmate or <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/">tweet about it</a>!</p>
+<p><strong>Found this helpful?</strong> Share it with a friend or <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/">tweet about it</a>!</p>
 <hr>
 <p><strong>Dataset Source:</strong> <a href="https://www.kaggle.com/datasets/mirichoi0218/insurance">Kaggle Insurance Dataset</a></p>
 </section>

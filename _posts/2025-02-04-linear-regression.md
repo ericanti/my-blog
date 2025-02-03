@@ -61,11 +61,11 @@ insurance_df['smoker'] = insurance_df['smoker'].astype('category').cat.codes
 
 ## 3. Exploratory Data Analysis (EDA) 🔍
 
-**Note:** We skip the data cleaning step since the dataset is clean. Always check for missing values and outliers in your data before proceeding. We also skip assumptions testing for brevity.
+Let's explore the data to understand the relationships between variables. This will help us identify which features are most influential in predicting insurance charges.
 
 ### Smoking vs. Charges Relationship
 
-For a quick EDA, let's visualize the relationship between smoking status and insurance charges.
+Here, let's visualize the relationship between smoking status and insurance charges using a scatter plot.
 
 ```python
 sns.lmplot(x = 'smoker', y = 'charges', data = insurance_df,
@@ -79,6 +79,8 @@ plt.show()
 ![Smoker vs Charges](/assets/img/Figure_1.jpeg)
 
 A clear relationship between smoking status and insurance charges is visible! Smokers tend to have higher insurance charges.
+
+**Note:** We skip the data cleaning step since the dataset is clean. Always check for missing values and outliers in your data before proceeding. We also skip assumptions testing for brevity.
 
 ### Correlation Heatmap
 
@@ -156,27 +158,32 @@ plt.show()
 
 It looks like the residuals are centered around zero, whicih is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
 
+**Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important.
+
 **Model Score:**  
 `print(f'R² Score: {model.score(X_test, y_test):.3f}')`  
 Output: `R² Score: 0.781`
+
 This R² score indicates that our model explains 78.1% of the variance in the data.
 
 ## 6. Making Predictions 🚀
 
 Let's predict charges for:
 
-- A 19-year-old female with a BMI of 27.9 who has no children and is a smoker.
+- A 50-year-old male with a BMI of 30.970 who has 3 children and is a non-smoker
 
 ```python
-u_age = 19
-u_sex = 0 # 0 for female, 1 for male
-u_bmi = 27.9
-u_children = 0
-u_smoker = 1 # 0 for non-smoker, 1 for smoker
+u_age = 50
+u_sex = 1 # 0 for female, 1 for male
+u_bmi = 30.970
+u_children = 3
+u_smoker = 0 # 0 for non-smoker, 1 for smoker
 data_predict = [[u_age, u_sex, u_bmi, u_children, u_smoker]]
 predicted_charge = model.predict(data_predict)
 print(f'Predicted charge: ${predicted_charge[0]:,.2f}')
 ```
+
+Looks like we are predicting a charge of about $12,000 for this individual. Not bad! You can now make predictions for any combination of features.
 
 **Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing) if you haven't been following along already!
 
@@ -198,7 +205,7 @@ plt.show()
 ```
 ![Feature Importance](/assets/img/Figure_4.jpeg)
 
-As expected, `smoker` has the highest impact on insurance charges. `Children`, `Age` and `BMI` also play significant roles.
+As expected, `smoker` has the highest impact on insurance charges. `Children`, `Age` and `BMI` also play significant roles. As seen in the heat map, `sex` has the least impact on charges. While this graph essentially shows the same information as the heatmap, it's a more intuitive way to understand the impact of each feature.
 
 ## Next Steps & Challenges 💪
 
@@ -222,7 +229,7 @@ You've now built a complete regression model! For more advanced techniques and o
 - Learn advanced EDA with [Seaborn Tutorials](https://seaborn.pydata.org/tutorial.html)
 - Practice with [Kaggle Notebooks](https://www.kaggle.com/code)
 
-**Found this helpful?** Share it with a classmate or [tweet about it](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/)!
+**Found this helpful?** Share it with a friend or [tweet about it](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/)!
 
 ---
 
