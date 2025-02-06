@@ -6,7 +6,7 @@ description: "Learn how to build and utilize a multiple linear regression model 
 image: "/assets/img/linear_regression.jpg"
 ---
 
-## Introduction: Using Real Data to Make Predictions
+## Using Real Data to Make Predictions
 Have you ever wondered about how data science can be used to tackle real-world problems? In this hands-on tutorial, we'll take a look into the world of predictive modeling by building a multiple linear regression model to estimate healthcare costs. Using Python and real data from [This Insurance Dataset](https://www.kaggle.com/datasets/mirichoi0218/insurance), we'll explore how various factors might influence insurance premiums. This guide aims to bridge the gap between statistics and practical machine learning applications.
 
 Use this google colab notebook to follow along: [Linear Regression Tutorial](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing)
@@ -54,9 +54,8 @@ insurance_df['smoker'] = insurance_df['smoker'].astype('category').cat.codes
 
 **Key Transformations:**
 
-- Removed `region` for simplicity
-- Encoded `sex` (0 = female, 1 = male)
-- Encoded `smoker` (0 = no, 1 = yes)
+- `region` was removed for the simplicity of this tutorial
+- `sex` (0 = female, 1 = male) and `smoker` (0 = no, 1 = yes) were encoded to be quantitative 
 
 **Note:** If you attempt to recreate this code on a different dataset, ensure that you adjust the encoding for categorical variables accordingly (or skip this step if your data is already numerical).
 
@@ -82,7 +81,7 @@ plt.show()
 	<figcaption>Figure 1. - Smoker vs Charges</figcaption>
 </figure>
 
-A clear relationship between smoking status and insurance charges is visible! Smokers tend to have higher insurance charges.
+There is a clear relationship between smoking status and charges. Smokers tend to have higher insurance charges.
 
 **Note:** We skip the data cleaning step since the dataset is clean. Always check for missing values and outliers in your data before proceeding. We also skip assumptions testing for brevity.
 
@@ -107,9 +106,11 @@ A higher correlation between `smoker` and `charges` is visible, which confirms o
 
 ## 4. Building the Regression Model ⚙️
 
-Now, let's build a linear regression model to predict insurance charges based on the available features. Here we can specify how much data we use to train the model and how much of the data we use to test the model. This is done using the `train_test_split` function from `sklearn.model_selection` and specifying the `test_size` parameter. Here `random_state` is set to 42 to ensure reproducibility for those following along.
+Now, let's build a linear regression model to predict insurance charges based on the available features. 
 
 ### Train-Test Split
+
+Here, using the `train_test_split` function from `sklearn.model_selection`, we can specify how much data we use to train the model and how much of the data we use to test the model using the `test_size` parameter. Here `random_state` is set to 42 to ensure reproducibility for those following along.
 
 ```python
 X = insurance_df.drop(columns = 'charges')
@@ -169,9 +170,9 @@ plt.show()
 	<figcaption>Figure 4. - Residuals</figcaption>
 </figure>
 
-It looks like the residuals are centered around zero, which is a good sign! We can see a bit of right-skewness, but we would expect that with any data dealing with money.
+It looks like the residuals are centered around zero, which is a good sign! We can see a bit of right-skewness, but we would expect that with any dataset dealing with money.
 
-**Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important.
+**Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important (check 'Conclusion and Resources' for additional methods that may help).
 
 **Model Score:**  
 `print(f'R² Score: {model.score(X_test, y_test):.3f}')`  
@@ -196,7 +197,7 @@ predicted_charge = model.predict(data_predict)
 print(f'Predicted charge: ${predicted_charge[0]:,.2f}')
 ```
 
-Looks like we are predicting a charge of about $12,000 for this individual. Not bad! You can now make predictions for any combination of features.
+Looks like we are predicting a charge of about $12,000 for this individual which is close to what was actually observed. You can now make predictions for any combination of features.
 
 **Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing) if you haven't been following along already!
 
@@ -225,13 +226,15 @@ As expected, `smoker` has the highest impact on insurance charges. `Children`, `
 
 ## Next Steps & Challenges 💪
 
+Before we conclude with this tutorial, here are some additional features that could be of use to you in your linear regression journey!
+
 **Want to improve the model? Try:**
 
 1. Adding polynomial features
 2. Testing regularization with [Ridge/Lasso Regression](https://scikit-learn.org/stable/modules/linear_model.html)
 3. Including interaction terms
 
-**Your Challenge:** Can you beat an R² score of 0.783? Share your results in the comments and how you achieved them!
+**Your Challenge:** Can you beat an R² score of 0.783 using these or other techniques? Share your results in the comments and how you achieved them!
 
 ---
 
