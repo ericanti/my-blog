@@ -172,7 +172,7 @@ plt.show()
 
 It looks like the residuals are centered around zero, which is a good sign! We can see a bit of right-skewness, but we would expect that with any dataset dealing with money.
 
-**Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important (check 'Conclusion and Resources' for additional methods that may help).
+**Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important (check 'Next Steps & Challenges' for additional methods that may help).
 
 **Model Score:**  
 `print(f'R² Score: {model.score(X_test, y_test):.3f}')`  
