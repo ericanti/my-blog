@@ -201,29 +201,6 @@ Looks like we are predicting a charge of about $12,000 for this individual which
 
 **Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing) if you haven't been following along already!
 
-## 7. Interpreting Results 🧠
-
-### Feature Importance
-
-This bar graph allows us to see which features have the most impact on insurance charges. It sorts the coefficients in descending order to show the most influential features.
-
-```python
-coefficients = pd.DataFrame({
-'Feature': X.columns,
-'Weight': model.coef_
-}).sort_values('Weight', ascending=False)
-plt.figure(figsize = (10,6))
-sns.barplot(x = 'Weight', y = 'Feature', data = coefficients, palette = 'viridis')
-plt.title('Feature Impact on Insurance Charges')
-plt.show()
-```
-<figure>
-	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_4.jpeg" alt=""> 
-	<figcaption>Figure 5. - Feature Importance</figcaption>
-</figure>
-
-As expected, `smoker` has the highest impact on insurance charges. `Children`, `Age` and `BMI` also play significant roles. As seen in the heat map, `sex` has the least impact on charges. While this graph essentially shows the same information as the heatmap, it's a more intuitive way to understand the impact of each feature.
-
 ## Next Steps & Challenges 💪
 
 Before we conclude with this tutorial, here are some additional features that could be of use to you in your linear regression journey!
