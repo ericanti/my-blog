@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to Use Multiple Linear Regression in Python to Make Predictions"
+title:  "Can Python Accurately Predict Your Next Medical Bill?"
 date: 2025-02-02
 description: "Learn how to build and utilize a multiple linear regression model using Python and real data."
 image: "/assets/img/linear_regression.jpg"
