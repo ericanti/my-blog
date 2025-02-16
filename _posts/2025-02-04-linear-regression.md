@@ -9,6 +9,8 @@ image: "/assets/img/linear_regression.jpg"
 ## Using Real Data to Make Predictions
 Have you ever wondered about how data science can be used to tackle real-world problems? In this hands-on tutorial, we'll take a look into the world of predictive modeling by building a multiple linear regression model to estimate healthcare costs. Using Python and real data from <a href="https://www.kaggle.com/datasets/mirichoi0218/insurance" target="_blank">This Insurance Dataset</a>, we'll explore how various factors might influence insurance premiums. This guide aims to bridge the gap between statistics and practical machine learning applications.
 
+**Prerequisites:** Basic knowledge of Python (pandas, numpy, basic data visualization) and linear regression is recommended.
+
 Use this google colab notebook to follow along: <a href="https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing" target="_blank">Linear Regression Tutorial</a>
 
 **What you'll learn:**
@@ -78,7 +80,7 @@ plt.show()
 ```
 <figure>
 	<img src="{{site.url}}/{{site.baseurl}}/assets/img/age_vs_insurance.png" alt=""> 
-	<figcaption>Figure 1. - Smoker vs Charges</figcaption>
+	<figcaption>Figure 1. - Age vs Charges</figcaption>
 </figure>
 
 There is a clear linear relationship between age and charges. Older policyholders tend to have higher insurance charges.
@@ -102,7 +104,7 @@ plt.show()
 	<figcaption>Figure 2. - Correlation Matrix</figcaption>
 </figure>
 
-A higher correlation between `smoker` and `charges` is visible, which confirms our earlier observation. The features with lower correlation values are less influential.
+A positive correlation is seen between `age` and `charges` is visible, which confirms our earlier observation. We see that `smoker` has the greatest correlation with `charges`. The features with lower correlation values are less influential.
 
 ## 4. Building the Regression Model ⚙️
 
@@ -110,7 +112,9 @@ Now, let's build a linear regression model to predict insurance charges based on
 
 ### Train-Test Split
 
-Here, using the `train_test_split` function from `sklearn.model_selection`, we can specify how much data we use to train the model and how much of the data we use to test the model using the `test_size` parameter. Here `random_state` is set to 42 to ensure reproducibility for those following along.
+Here, using the `train_test_split` function from `sklearn.model_selection`, we can specify how much data we use to train the model and how much of the data we use to test the model using the `test_size` parameter. To explain this simply, when we "train the model" we show it lots of examples (training set) to learn patterns, then check its understanding with new data it's never seen before (test set) to see if it really does a good job at predicting. It's like teaching a student with practice problems, then giving them a final exam to see how well they learned! 
+
+**Note:** `random_state` is set to 42 to ensure reproducibility for those following along (like using the same practice problems and final exam for everyone).
 
 ```python
 X = insurance_df.drop(columns = 'charges')
@@ -188,6 +192,8 @@ Let's predict charges for:
 
 - A 50-year-old male with a BMI of 30.970 who has 3 children and is a non-smoker
 
+Here we can simply input the values into the model to get a prediction using `model.predict`. We created a list of lists `data_predict` to match the model's input format.
+
 ```python
 u_age = 50
 u_sex = 1 # 0 for female, 1 for male
@@ -198,8 +204,9 @@ data_predict = [[u_age, u_sex, u_bmi, u_children, u_smoker]]
 predicted_charge = model.predict(data_predict)
 print(f'Predicted charge: ${predicted_charge[0]:,.2f}')
 ```
+Output: `Predicted charge: $12,157.52`
 
-Looks like we are predicting a charge of about $12,000 for this individual which is close to what was actually observed. You can now make predictions for any combination of features.
+Looks like we are predicting a charge of about $12,000 for this individual which is fairly close to what was actually observed. You can now make predictions for any combination of features.
 
 **Try This:** Modify the input values using <a href="https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing" target="_blank">This Colab Notebook</a> if you haven't been following along already!
 
