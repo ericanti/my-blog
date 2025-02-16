@@ -158,7 +158,9 @@ Not bad! The model seems to be doing a decent job of predicting insurance charge
 
 ### Residual Analysis
 
-By plotting the residuals, we can check if our model is making systematic errors. Ideally, the residuals should be normally distributed around zero.
+By plotting the residuals, we can check if our model is making systematic errors. Ideally, the residuals should be normally distributed around zero. Why is this important? If the residuals show a pattern, it means our model is consistently over or underestimating charges in which case we could use other techniques to improve our model (check 'Next Steps & Challenges'). 
+
+Think of a bathroom scale that always shows your weight as 5 pounds less than it actually is. You would want to know that so you can adjust your weight accordingly!
 
 ```python
 residuals = y_test - predictions
@@ -174,9 +176,7 @@ plt.show()
 	<figcaption>Figure 4. - Residuals</figcaption>
 </figure>
 
-It looks like the residuals are centered around zero, which is a good sign! We can see a bit of right-skewness, but we would expect that with any dataset dealing with money.
-
-**Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important (check 'Next Steps & Challenges' for additional methods that may help).
+It looks like the residuals are centered around zero, which is a good sign! We can see a little bit of right-skewness, but this is expected when working with any dataset dealing with money.
 
 **Model Score:**  
 ```python
