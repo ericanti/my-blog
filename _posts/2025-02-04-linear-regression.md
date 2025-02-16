@@ -7,9 +7,9 @@ image: "/assets/img/linear_regression.jpg"
 ---
 
 ## Using Real Data to Make Predictions
-Have you ever wondered about how data science can be used to tackle real-world problems? In this hands-on tutorial, we'll take a look into the world of predictive modeling by building a multiple linear regression model to estimate healthcare costs. Using Python and real data from [This Insurance Dataset](https://www.kaggle.com/datasets/mirichoi0218/insurance), we'll explore how various factors might influence insurance premiums. This guide aims to bridge the gap between statistics and practical machine learning applications.
+Have you ever wondered about how data science can be used to tackle real-world problems? In this hands-on tutorial, we'll take a look into the world of predictive modeling by building a multiple linear regression model to estimate healthcare costs. Using Python and real data from <a href="https://www.kaggle.com/datasets/mirichoi0218/insurance" target="_blank">This Insurance Dataset</a>, we'll explore how various factors might influence insurance premiums. This guide aims to bridge the gap between statistics and practical machine learning applications.
 
-Use this google colab notebook to follow along: [Linear Regression Tutorial](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing)
+Use this google colab notebook to follow along: <a href="https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing" target="_blank">Linear Regression Tutorial</a>
 
 **What you'll learn:**
 
@@ -199,16 +199,16 @@ print(f'Predicted charge: ${predicted_charge[0]:,.2f}')
 
 Looks like we are predicting a charge of about $12,000 for this individual which is close to what was actually observed. You can now make predictions for any combination of features.
 
-**Try This:** Modify the input values using [this Colab notebook](https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing) if you haven't been following along already!
+**Try This:** Modify the input values using <a href="https://colab.research.google.com/drive/1Hq52eqEonUuwFAMfieEQ5hgWozjD8KCo?usp=sharing" target="_blank">This Colab Notebook</a> if you haven't been following along already!
 
 ## Next Steps & Challenges 💪
 
 Before we conclude with this tutorial, here are some additional features that could be of use to you in your linear regression journey!
 
-**Want to improve the model? Try:**
+**Want to expirement with different techiques? Try:**
 
 1. Adding polynomial features
-2. Testing regularization with [Ridge/Lasso Regression](https://scikit-learn.org/stable/modules/linear_model.html)
+2. Testing regularization with <a href="https://scikit-learn.org/stable/modules/linear_model.html" target="_blank">Ridge/Lasso Regression</a>
 3. Including interaction terms
 
 **Your Challenge:** Can you beat an R² score of 0.783 using these or other techniques? Share your results in the comments and how you achieved them!
@@ -221,12 +221,12 @@ In this tutorial, we explored how to build a multiple linear regression model to
 
 You've now built a complete regression model! For more advanced techniques and other useful tools, check out the resources below:
 
-- Explore [Scikit-learn's Linear Models](https://scikit-learn.org/stable/modules/linear_model.html)
-- Learn advanced EDA with [Seaborn Tutorials](https://seaborn.pydata.org/tutorial.html)
-- Practice with [Kaggle Notebooks](https://www.kaggle.com/code)
+- Explore <a href="https://scikit-learn.org/stable/modules/linear_model.html" target="_blank">Scikit-learn's Linear Models</a>
+- Learn advanced EDA with <a href="https://seaborn.pydata.org/tutorial.html" target="_blank">Seaborn Tutorials</a>
+- Practice with <a href="https://www.kaggle.com/code" target="_blank">Kaggle Notebooks</a>
 
-**Found this helpful?** Share it with a friend or [tweet about it](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/)!
+**Found this helpful?** Share it with a friend or <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20regression%20tutorial!%20https://ericanti.github.io/my-blog/blog/linear-regression/" target="_blank">tweet about it</a>!
 
 ---
 
-**Dataset Source:** [Kaggle Insurance Dataset](https://www.kaggle.com/datasets/mirichoi0218/insurance)
+**Dataset Source:** <a href="https://www.kaggle.com/datasets/mirichoi0218/insurance" target="_blank">Kaggle Insurance Dataset</a>
