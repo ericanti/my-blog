@@ -81,7 +81,7 @@ plt.show()
 	<figcaption>Figure 1. - Smoker vs Charges</figcaption>
 </figure>
 
-There is a clear relationship between smoking status and charges. Smokers tend to have higher insurance charges.
+There is a clear linear relationship between age and charges. Older policyholders tend to have higher insurance charges.
 
 **Note:** We skip the data cleaning step since the dataset is clean. Always check for missing values and outliers in your data before proceeding. We also skip assumptions testing for brevity.
 
@@ -175,7 +175,9 @@ It looks like the residuals are centered around zero, which is a good sign! We c
 **Note:** If you see a pattern in the residuals, it may indicate that the model is missing something important (check 'Next Steps & Challenges' for additional methods that may help).
 
 **Model Score:**  
-`print(f'R² Score: {model.score(X_test, y_test):.3f}')`  
+```python
+print(f'R² Score: {model.score(X_test, y_test):.3f}')
+``` 
 Output: `R² Score: 0.781`
 
 This R² score indicates that our model explains 78.1% of the variance in the data.
