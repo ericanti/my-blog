@@ -63,21 +63,21 @@ insurance_df['smoker'] = insurance_df['smoker'].astype('category').cat.codes
 
 Let's explore the data to understand the relationships between variables. This will help us identify which features are most influential in predicting insurance charges.
 
-### Smoking vs. Charges Relationship
+### Age vs. Charges Relationship
 
-Here, let's visualize the relationship between smoking status and insurance charges using a scatter plot.
+Here, let's visualize the relationship between policyholder age and insurance charges using a scatter plot.
 
 ```python
-sns.lmplot(x = 'smoker', y = 'charges', data = insurance_df,
+sns.lmplot(x = 'age', y = 'charges', data = insurance_df,
 line_kws = {'color': 'red'}, height = 6, aspect = 1.5)
-plt.title('Smoking Status vs Insurance Charges')
-plt.xlabel('Smoker (0=No, 1=Yes)')
+plt.title('Age vs Insurance Charges')
+plt.xlabel('Age (years)')
 plt.ylabel('Charges ($)')
 plt.tight_layout()
 plt.show()
 ```
 <figure>
-	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_1.jpeg" alt=""> 
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/age_vs_insurance.png" alt=""> 
 	<figcaption>Figure 1. - Smoker vs Charges</figcaption>
 </figure>
 
@@ -98,7 +98,7 @@ plt.title('Feature Correlation Matrix')
 plt.show()
 ```
 <figure>
-	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_2.jpeg" alt=""> 
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/corr_matrix.png" alt=""> 
 	<figcaption>Figure 2. - Correlation Matrix</figcaption>
 </figure>
 
@@ -146,7 +146,7 @@ plt.title('Actual vs Predicted Insurance Charges')
 plt.show()
 ```
 <figure>
-	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_3.jpeg" alt=""> 
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/actual_vs_predicted.png" alt=""> 
 	<figcaption>Figure 3. - Actual vs Predicted</figcaption>
 </figure>
 
@@ -166,7 +166,7 @@ plt.title('Residual Distribution')
 plt.show()
 ```
 <figure>
-	<img src="{{site.url}}/{{site.baseurl}}/assets/img/Figure_5.jpeg" alt=""> 
+	<img src="{{site.url}}/{{site.baseurl}}/assets/img/residuals.png" alt=""> 
 	<figcaption>Figure 4. - Residuals</figcaption>
 </figure>
 
