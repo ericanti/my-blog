@@ -72,4 +72,17 @@ billboard_df_2019.to_csv('billboard2019.csv', index = False)
 
 Without loss of generality, the 1969 data is saved in the same manner. Note that we do not remove duplicates in this analysis, as we assume that a song being repeated on the Billboard Hot 100 is indicative of its popularity and enduring appeal.
 
-Let's check to see what people were listening to 
+Let's pick and compare the first two songs in each dataframe:
+
+```python
+print(f"2019: {billboard_df_2019['song'][0]} by {billboard_df_2019['artist'][0]}\n"
+      f"1969: {billboard_df_1969['song'][0]} by {billboard_df_1969['artist'][0]}")
+```
+
+output: 
+`2019: Thank U, Next by Ariana Grande
+1969: I Heard It Through The Grapevine by Marvin Gaye`
+
+Ah yes, one talking about their ex and the other of hearing rumors through the grapevine. Truly, the Billboard Hot 100 has always been the ultimate melting pot of everything gossip related!
+
+## Using the MusicBrainz API

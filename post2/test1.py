@@ -48,10 +48,14 @@ billboard_df_1969['last_week'] = billboard_df_1969['last_week'].astype('Int64')
 
 billboard_df_1969.to_csv('billboard1969.csv', index = False)
 
+#testing
+print(f"2019: {billboard_df_2019['song'][0]} by {billboard_df_2019['artist'][0]}\n"
+      f"1969: {billboard_df_1969['song'][0]} by {billboard_df_1969['artist'][0]}")
+
 # load in data
 
-billboard_df_2019 = pd.read_csv('billboard2019.csv')
-billboard_df_1969 = pd.read_csv('billboard1969.csv')
+billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard2019.csv')
+billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969.csv')
 
 # fetch musicbrainz mbid
 
