@@ -65,7 +65,7 @@ billboard_df_2019 = billboard_df_2019['data'].explode().apply(pd.Series)
 
 billboard_df_2019['last_week'] = billboard_df_2019['last_week'].astype('Int64')
 
-#save
+# save
 
 billboard_df_2019.to_csv('billboard2019.csv', index = False)
 ```
@@ -86,3 +86,67 @@ output:
 Ah yes, one talking about their ex and the other of hearing rumors through the grapevine. Truly, the Billboard Hot 100 has always been the ultimate melting pot of everything gossip related!
 
 ## Using the MusicBrainz API
+
+Now that we have our songs to analyze, we must uncover the acoustic features of each one. To do this, we will use a website called AcousticBrainz, which functions best when provided with a specific song ID (called an MBID). But first, we need to extract each song's MBID. Think of an MBID as a unique fingerprint for every song. With this fingerprint, we can then find then specific details pertaining to this individual song. To get these IDs, we will use a different website called MusicBrainz.
+
+**Note:** It is important to always review API documentation, find the documentation for the MusicBrainz API <a href="https://musicbrainz.org/doc/Beginners_Guide" target="_blank">here</a>. Every API is different and had different syntax, requirements, and limitations.
+
+First, we define a function to extract the MBID of any individual song.
+
+```python
+def get_recording_mbid(song, artist):
+    # define our base url
+    url = "https://musicbrainz.org/ws/2/recording"
+
+    # query is what will be searched
+    query = f'"{song}" by "{artist}"'
+
+    params = {
+        'query': query,
+        'fmt': 'json',
+        'limit': 1 # limit 1 indicates that we only want the first entry
+        }
+
+    headers = {
+        # here you put the name of your application/purpose of API usage
+        # as well as your email
+        'User-Agent': 'DataAnalysis/1.0 (youremail@exampledomain.com)' 
+        }
+    
+    try:
+        response = requests.get( #get the data!!!
+            url,
+            params=params,
+            headers=headers
+            )
+        # here we normalize our json output, selecting only the recording part of the multi-nested list, 
+        # selecting the first element of the first list and only the 'id', this will give us the MBID
+        return pd.json_normalize(response.json())['recordings'][0][0]['id']
+    
+    except: # in the case of an error, put a null value in the cell
+        return None
+```
+
+Lets see how it works! `get_recording_mbid(billboard_df_2019['song'][0], billboard_df_2019['artist'][0])` gives us the MBID for "Thank U, Next" and outputs `274b3a7b-64bd-4af3-9af9-dd41277ddc17`. We will check the validity of this later.
+
+With the function working, we create a for loop to extract the MBID of every individual song in both dataframes.
+
+```python
+for df in [billboard_df_2019, billboard_df_1969]: # looping through each df
+    df['mbid'] = None # initializing mbid column
+    
+    for idx, row in df.iterrows(): # iterating through each row of df
+        existing_mbids = df.loc[(df['song'] == row['song']) & (df['artist'] == row['artist']), 'mbid'] # check to see if already exists
+    
+        valid_mbids = existing_mbids[existing_mbids.apply(lambda x: len(x) == 36)] # check to see if valid mbid
+    
+        if not valid_mbids.empty: # if valid mbid already exists, paste existing mbid in cell
+            df.at[idx, 'mbid'] = valid_mbids.iloc[0]
+    
+        else: # if no, use our function to get the mbid
+            df.at[idx, 'mbid'] = get_recording_mbid(row['song'], row['artist'])
+            time.sleep(1.5) # repeat every 1.5 seconds.
+```
+
+**Note: ** the MusicBrainz API has a rate limit of 10 requests per every 10 seconds, here we use a sleep timer of 1.5 just to be safe. Remember to not exceed the rate limit or you will be banned temporarily (or even permanently).
+

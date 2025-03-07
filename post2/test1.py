@@ -86,6 +86,10 @@ def get_recording_mbid(song, artist):
     
     except:
         return None
+    
+# testing
+
+get_recording_mbid(billboard_df_2019['song'][0], billboard_df_2019['artist'][0])
 
 # get mbids for both dataframes
 
