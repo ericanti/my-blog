@@ -81,8 +81,9 @@ def get_recording_mbid(song, artist):
             params=params,
             headers=headers
             )
-
-        return pd.json_normalize(response.json())['recordings'][0][0]['id']
+        
+        if response.status_code == 200:
+            return pd.json_normalize(response.json())['recordings'][0][0]['id']
     
     except:
         return None
@@ -110,7 +111,10 @@ for df in [billboard_df_2019, billboard_df_1969]:
             df.at[idx, 'mbid'] = get_recording_mbid(row['song'], row['artist'])
             time.sleep(1.5)
 
-#save
+#filtering out null values and saving
+
+billboard_df_2019 = billboard_df_2019[billboard_df_2019['mbid'].notnull()]
+billboard_df_1969 = billboard_df_1969[billboard_df_1969['mbid'].notnull()]
 
 billboard_df_2019.to_csv('billboard2019_mbid.csv', index = False)
 billboard_df_1969.to_csv('billboard1969_mbid.csv', index = False)
@@ -141,45 +145,76 @@ def get_song_features(mbid):
 
     # get high level and low level features
 
-    hl_response = requests.get(
-        f"https://acousticbrainz.org/api/v1/{mbid}/high-level",
-        headers=headers
-        )
+    try:
+
+        hl_response = requests.get(
+            f"https://acousticbrainz.org/api/v1/{mbid}/high-level",
+            headers=headers
+            )
+        
+        ll_response = requests.get(
+            f"https://acousticbrainz.org/api/v1/{mbid}/low-level",
+            headers=headers
+            )
+        
+        # extract data
+
+        if hl_response.status_code == 200 and ll_response.status_code == 200:
+            hl_data = hl_response.json().get('highlevel', {})
+            ll_data = ll_response.json()
+
+            # update features
+
+            features.update({
+                'danceability': hl_data.get('danceability', {}).get('value'),
+                'genre': hl_data.get('genre_rosamerica', {}).get('value'),
+                'gender': hl_data.get('gender', {}).get('value'),
+                'mood': hl_data.get('mood_aggressive', {}).get('value'),
+                'instrumental': hl_data.get('voice_instrumental', {}).get('value'),
+                'bpm': ll_data.get('rhythm', {}).get('bpm'),
+                'key': ll_data.get('tonal', {}).get('key_key'),
+                'loudness': ll_data.get('lowlevel', {}).get('average_loudness'),
+                'mood_happy': hl_data.get('mood_happy', {}).get('value')
+                })
+            
+            return features
     
-    ll_response = requests.get(
-        f"https://acousticbrainz.org/api/v1/{mbid}/low-level",
-        headers=headers
-        )
+    except:
+        return None
     
-    # extract data
+# create a cache to avoid unnecessary API calls
+features_cache = {}
 
-    hl_data = hl_response.json().get('highlevel', {})
-    ll_data = ll_response.json()
+for df in [billboard_df_1969, billboard_df_2019]:
+    for index, row in df.iterrows():
+        mbid = row['mbid']
+        
+        if mbid in features_cache:
+            # reuse cached features if applicable
+            cached_features = features_cache[mbid]
+            for feature in ['danceability', 'genre', 'gender', 'mood',
+                            'instrumental', 'bpm', 'key', 'loudness', 'mood_happy']:
+                df.at[index, feature] = cached_features.get(feature, None)
+        else:
+            # get features if not in cache
+            song_features = get_song_features(mbid)
 
-    # update features
+            if song_features:
+                # cache the features
+                features_cache[mbid] = song_features
+                
+                # assign features to the corresponding columns
+                for feature in ['danceability', 'genre', 'gender', 'mood',
+                                'instrumental', 'bpm', 'key', 'loudness', 'mood_happy']:
+                    df.at[index, feature] = song_features.get(feature, None)
+            else:
+                # set all features to None if no data is found
+                for feature in ['danceability', 'genre', 'gender', 'mood',
+                                'instrumental', 'bpm', 'key', 'loudness', 'mood_happy']:
+                    df.at[index, feature] = None
 
-    features.update({
-        'danceability': hl_data.get('danceability', {}).get('value'),
-        'genre': hl_data.get('genre_rosamerica', {}).get('value'),
-        'gender': hl_data.get('gender', {}).get('value'),
-        'mood': hl_data.get('mood_aggressive', {}).get('value'),
-        'instrumental': hl_data.get('voice_instrumental', {}).get('value'),
-        'bpm': ll_data.get('rhythm', {}).get('bpm'),
-        'key': ll_data.get('tonal', {}).get('key_key'),
-        'loudness': ll_data.get('lowlevel', {}).get('average_loudness'),
-        'mood_happy': hl_data.get('mood_happy', {}).get('value')
-        })
-    
-    return features
-
-for df, column_name in [(billboard_df_1969, 'mbid'), (billboard_df_2019, 'mbid')]:
-    for song in df[column_name]:
-        df.loc[df[column_name] == song, [
-            'danceability', 'genre', 'gender', 'mood', 
-            'instrumental', 'bpm', 'key', 
-            'loudness', 'mood_happy'
-        ]] = list(get_song_features(song).values())
-        time.sleep(3)
+            # sleep for 3 seconds
+            time.sleep(3)
 
 # Save results
 billboard_df_2019.to_csv('billboard2019_features.csv', index=False)
