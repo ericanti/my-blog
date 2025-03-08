@@ -97,21 +97,20 @@ for df in [billboard_df_2019, billboard_df_1969]:
     df['mbid'] = None
     
     for idx, row in df.iterrows():
-        existing_mbids = df.loc[(df['song'] == row['song']) & (df['artist'] == row['artist']), 'mbid']
-    
-        valid_mbids = existing_mbids[existing_mbids.apply(lambda x: len(x) == 36)]
-    
+        existing_mbids = df.loc[(df['song'] == row['song']) & 
+                              (df['artist'] == row['artist']), 'mbid']
+        
+        valid_mbids = existing_mbids[existing_mbids.apply(
+            lambda x: x is not None and len(x) == 36
+        )]
+        
         if not valid_mbids.empty:
             df.at[idx, 'mbid'] = valid_mbids.iloc[0]
-    
         else:
             df.at[idx, 'mbid'] = get_recording_mbid(row['song'], row['artist'])
             time.sleep(1.5)
 
-# filter only those with mbid
-
-billboard_df_2019 = billboard_df_2019[billboard_df_2019['mbid'].notnull()]
-billboard_df_1969 = billboard_df_1969[billboard_df_1969['mbid'].notnull()]
+#save
 
 billboard_df_2019.to_csv('billboard2019_mbid.csv', index = False)
 billboard_df_1969.to_csv('billboard1969_mbid.csv', index = False)
