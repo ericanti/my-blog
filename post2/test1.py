@@ -216,9 +216,10 @@ for df in [billboard_df_1969, billboard_df_2019]:
             # sleep for 3 seconds
             time.sleep(3)
 
+# filter only those with valid features
 billboard_df_2019 = billboard_df_2019[billboard_df_2019['danceability'].notnull()]
 billboard_df_1969 = billboard_df_1969[billboard_df_1969['danceability'].notnull()]
 
-# Save results
+# save results
 billboard_df_2019.to_csv('billboard2019_features.csv', index=False)
 billboard_df_1969.to_csv('billboard1969_features.csv', index=False)
