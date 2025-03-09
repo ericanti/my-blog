@@ -216,21 +216,21 @@ for df in [billboard_df_1969, billboard_df_2019]:
             # sleep for 3 seconds
             time.sleep(3)
 
-# ensure that all duplicates have features as well before removing the nulls
+billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard2019_features.csv')
+billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969_features.csv')
+
+# fill any duplicates with null values first
+features = ['danceability', 'genre', 'gender', 'mood',
+            'instrumental', 'bpm', 'key', 'loudness', 'mood_happy']
+
 for df in [billboard_df_1969, billboard_df_2019]:
-    for index, row in df.iterrows():
-        mbid = row['mbid']
-        
-        # Check if the current row has missing features
-        if pd.isnull(row['danceability']):
-            # Find other duplicates with the same 'mbid' that have features
-            duplicate_rows = df[(df['mbid'] == mbid) & df['danceability'].notnull()]
-            
-            if not duplicate_rows.empty:
-                # Copy features from the first duplicate with valid features
-                for feature in ['danceability', 'genre', 'gender', 'mood',
-                                'instrumental', 'bpm', 'key', 'loudness', 'mood_happy']:
-                    df.at[index, feature] = duplicate_rows.iloc[0]
+    # Create mask for rows needing imputation
+    needs_imputation = df['danceability'].isna()
+    
+    # Group by MBID and propagate features forward
+    df.loc[needs_imputation, features] = df.groupby('mbid')[features].transform(
+        lambda x: x.ffill().bfill()
+    )
 
 # filter only those with valid features
 billboard_df_2019 = billboard_df_2019[billboard_df_2019['danceability'].notnull()]
