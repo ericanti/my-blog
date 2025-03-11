@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # get historic billboard data
-
 url = 'https://raw.githubusercontent.com/mhollingshead/billboard-hot-100/main/all.json'
 
 response = requests.get(url)
@@ -18,37 +17,29 @@ billboard_df = pd.DataFrame(data)
 billboard_df['date'] = pd.to_datetime(billboard_df['date'])
 
 # filter data to only include dates from 2019
-
 billboard_df_2019 = billboard_df[billboard_df['date'] >= datetime.datetime(2019, 1, 1)]
 billboard_df_2019 = billboard_df_2019[billboard_df_2019['date'] <= datetime.datetime(2019, 12, 31)]
 
 # unnest the data
-
 billboard_df_2019 = billboard_df_2019['data'].explode().apply(pd.Series)
 
 # convert last_week to int
-
 billboard_df_2019['last_week'] = billboard_df_2019['last_week'].astype('Int64')
 
 #save
-
 billboard_df_2019.to_csv('billboard2019.csv', index = False)
 
 # filter data to only include dates between 1980 and 1990
-
 billboard_df_1969 = billboard_df[billboard_df['date'] >= datetime.datetime(1969, 1, 1)]
 billboard_df_1969 = billboard_df_1969[billboard_df_1969['date'] <= datetime.datetime(1969, 12, 31)]
 
 # unnest the data
-
 billboard_df_1969 = billboard_df_1969['data'].explode().apply(pd.Series)
 
 # convert last_week to int
-
 billboard_df_1969['last_week'] = billboard_df_1969['last_week'].astype('Int64')
 
 #save
-
 billboard_df_1969.to_csv('billboard1969.csv', index = False)
 
 #testing
@@ -56,47 +47,46 @@ print(f"2019: {billboard_df_2019['song'][0]} by {billboard_df_2019['artist'][0]}
       f"1969: {billboard_df_1969['song'][0]} by {billboard_df_1969['artist'][0]}")
 
 # load in data
-
 billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard2019.csv')
 billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969.csv')
 
 # fetch musicbrainz mbid
-
 def get_recording_mbid(song, artist):
+    # define our base url
     url = "https://musicbrainz.org/ws/2/recording"
 
+    # query is what will be searched
     query = f'"{song}" by "{artist}"'
 
     params = {
         'query': query,
         'fmt': 'json',
-        'limit': 1
+        'limit': 1 # limit 1 indicates that we only want the first entry
         }
 
     headers = {
-        'User-Agent': 'DataAnalysis/1.0 (ericantilloncharles@gmail.com)'
+        # here you put the name of your application/purpose of API usage
+        # as well as your email to identify who you are
+        'User-Agent': 'DataAnalysis/1.0 (youremail@exampledomain.com)' 
         }
     
     try:
-
-        response = requests.get(
+        response = requests.get( #get the data!!!
             url,
             params=params,
             headers=headers
             )
-        
-        if response.status_code == 200:
-            return pd.json_normalize(response.json())['recordings'][0][0]['id']
+        # here we normalize our json output, selecting only the recording part of the multi-nested list, 
+        # selecting the first element of the first list and only the 'id', this will give us the MBID
+        return pd.json_normalize(response.json())['recordings'][0][0]['id']
     
-    except:
+    except: # in the case of an error, put a null value in the cell
         return None
     
 # testing
-
 get_recording_mbid(billboard_df_2019['song'][0], billboard_df_2019['artist'][0])
 
 # get mbids for both dataframes
-
 for df in [billboard_df_2019, billboard_df_1969]:
     df['mbid'] = None
     
@@ -122,13 +112,11 @@ billboard_df_2019.to_csv('billboard2019_mbid.csv', index = False)
 billboard_df_1969.to_csv('billboard1969_mbid.csv', index = False)
 
 # fetch acoustic features using acousticbrainz
-
 # load data
 billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard2019_mbid.csv')
 billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969_mbid.csv')
 
 def get_song_features(mbid):
-
     features = {
     'danceability': None,
     'genre': None,
@@ -146,7 +134,6 @@ def get_song_features(mbid):
         }
 
     # get high level and low level features
-
     try:
 
         hl_response = requests.get(
@@ -160,13 +147,11 @@ def get_song_features(mbid):
             )
         
         # extract data
-
         if hl_response.status_code == 200 and ll_response.status_code == 200:
             hl_data = hl_response.json().get('highlevel', {})
             ll_data = ll_response.json()
 
             # update features
-
             features.update({
                 'danceability': hl_data.get('danceability', {}).get('value'),
                 'genre': hl_data.get('genre_rosamerica', {}).get('value'),
@@ -184,8 +169,9 @@ def get_song_features(mbid):
     except:
         return None
     
+# testing
 get_song_features(billboard_df_2019['mbid'][2])
- 
+
 # create a cache to avoid unnecessary API calls
 features_cache = {}
 
@@ -253,7 +239,6 @@ print(f"Mean loudness coefficient in 1969: {billboard_df_1969['loudness'].mean()
 print(f"Mean loudness coefficient in 2019: {billboard_df_2019['loudness'].mean()}")
 
 # comparing happy vs non-happy songs
-
 prop_happy_2019 = billboard_df_2019['mood_happy'].value_counts()['happy'] / billboard_df_2019['mood_happy'].value_counts().sum()
 prop_not_happy_2019 = 1 - prop_happy_2019
 
@@ -291,7 +276,6 @@ plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/happy_
 plt.show()
 
 # comparing proportion of male vs female artists
-
 prop_male_2019 = billboard_df_2019['gender'].value_counts()['male'] / billboard_df_2019['gender'].value_counts().sum()
 prop_female_2019 = 1 - prop_male_2019
 
@@ -329,26 +313,23 @@ plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/gender
 plt.show()
 
 # comparing longevity of #1 songs between years
-
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
-# Define shared bin edges for both histograms
-bin_edges = np.linspace(0, 60, 11)  # 15 bins from 0 to 55
+bin_edges = np.linspace(0, 60, 11)
 
-# Filter for songs in the top 5 and select the week with the highest 'weeks_on_chart'
+# filter for songs in the top 5 and select the week with the highest 'weeks_on_chart'
 top_5_1969 = (
     billboard_df_1969[billboard_df_1969['peak_position'].between(1, 5)]
     .sort_values('weeks_on_chart', ascending=False)
-    .drop_duplicates(subset='mbid')  # Keep only the row with max weeks_on_chart per song
+    .drop_duplicates(subset='mbid')  # keep only the row with max weeks_on_chart per song
 )
 
 top_5_2019 = (
     billboard_df_2019[billboard_df_2019['peak_position'].between(1, 5)]
     .sort_values('weeks_on_chart', ascending=False)
-    .drop_duplicates(subset='mbid')  # Keep only the row with max weeks_on_chart per song
+    .drop_duplicates(subset='mbid')
 )
 
-# Plot for 1969 data in the first subplot
 ax1.hist(top_5_1969['weeks_on_chart'], 
          bins=bin_edges, color='blue', edgecolor='black', alpha=0.7, density=True)
 ax1.set_title("Weeks on Chart for Top 5 Songs (1969)")
@@ -357,7 +338,6 @@ ax1.set_ylabel("Density")
 ax1.set_xlim(0, 60)
 ax1.set_ylim(0, 0.15)
 
-# Plot for 2019 data in the second subplot
 ax2.hist(top_5_2019['weeks_on_chart'], 
          bins=bin_edges, color='red', edgecolor='black', alpha=0.7, density=True)
 ax2.set_title("Weeks on Chart for Top 5 Songs (2019)")
@@ -368,7 +348,6 @@ ax2.set_ylim(0, 0.15)
 
 plt.tight_layout()
 
-# Save the plot
 plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/weeks_on_chart_top5_max.png')
 
 plt.show()
