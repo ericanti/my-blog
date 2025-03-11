@@ -112,7 +112,6 @@ for df in [billboard_df_2019, billboard_df_1969]:
             time.sleep(1.5)
 
 #filtering out null values and saving
-
 billboard_df_2019 = billboard_df_2019[billboard_df_2019['mbid'].notnull()]
 billboard_df_1969 = billboard_df_1969[billboard_df_1969['mbid'].notnull()]
 
@@ -182,6 +181,8 @@ def get_song_features(mbid):
     except:
         return None
     
+get_song_features(billboard_df_2019['mbid'][2])
+ 
 # create a cache to avoid unnecessary API calls
 features_cache = {}
 
@@ -235,3 +236,19 @@ billboard_df_1969 = billboard_df_1969[billboard_df_1969['danceability'].notnull(
 # save results
 billboard_df_2019.to_csv('billboard2019_features.csv', index=False)
 billboard_df_1969.to_csv('billboard1969_features.csv', index=False)
+
+# load data
+billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard2019_features.csv')
+billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969_features.csv')
+
+billboard_df_2019['mood_happy'].value_counts()
+
+billboard_df_1969['mood_happy'].value_counts()
+
+billboard_df_2019['gender'].value_counts()
+
+billboard_df_1969['gender'].value_counts()
+
+billboard_df_2019['genre'].value_counts()
+
+billboard_df_1969['genre'].value_counts()
