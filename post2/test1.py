@@ -4,6 +4,7 @@ import requests
 import datetime
 import time
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # get historic billboard data
 
@@ -263,61 +264,86 @@ years = ['1969', '2019']
 happy_proportions = [prop_happy_1969, prop_happy_2019]
 not_happy_proportions = [prop_not_happy_1969, prop_not_happy_2019]
 
-x = np.arange(len(years))
-width = 0.5
+data = pd.DataFrame({
+    'Year': years + years,
+    'Proportion': happy_proportions + not_happy_proportions,
+    'Mood': ['Happy'] * 2 + ['Not Happy'] * 2
+})
 
-plt.bar(x, happy_proportions, width, label='Happy', color='yellow')
-plt.bar(x, not_happy_proportions, width, bottom=happy_proportions, label='Not Happy', color='blue')
+pastel_orange = '#FFC499'
+pastel_blue = '#87CEEB'
 
-plt.xticks(x, years)
+sns.set_style("whitegrid")
+sns.set_palette([pastel_orange, pastel_blue])
 
-plt.title('Proportion of Happy and Not Happy Songs by Year')
-plt.legend()
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Year', y='Proportion', hue='Mood', data=data)
 
+plt.title('Proportion of Happy and Not Happy Songs by Year', fontsize=16, pad=20)
+plt.xlabel('Year', fontsize=12)
+plt.ylabel('Proportion', fontsize=12)
+plt.legend(title='Mood', title_fontsize='12', fontsize='10')
+
+plt.tight_layout()
 plt.show()
 
 # comparing proportion of male vs female artists
 
 prop_male_2019 = billboard_df_2019['gender'].value_counts()['male'] / billboard_df_2019['gender'].value_counts().sum()
-prop_female_2019 = billboard_df_2019['gender'].value_counts()['female'] / billboard_df_2019['gender'].value_counts().sum()
+prop_female_2019 = 1 - prop_male_2019
 
 prop_male_1969 = billboard_df_1969['gender'].value_counts()['male'] / billboard_df_1969['gender'].value_counts().sum()
-prop_female_1969 = billboard_df_1969['gender'].value_counts()['female'] / billboard_df_1969['gender'].value_counts().sum()
+prop_female_1969 = 1 - prop_male_1969
 
 years = ['1969', '2019']
 male_proportions = [prop_male_1969, prop_male_2019]
 female_proportions = [prop_female_1969, prop_female_2019]
 
-x = np.arange(len(years))
-width = 0.5 
+data = pd.DataFrame({
+    'Year': years + years,
+    'Proportion': male_proportions + female_proportions,
+    'Gender': ['Male'] * 2 + ['Female'] * 2
+})
 
-plt.bar(x, male_proportions, width, label='Male', color='blue')
-plt.bar(x, female_proportions, width, bottom=male_proportions, label='Female', color='pink')
+pastel_red = '#FFB6C1'
+pastel_blue = '#87CEEB'
 
-plt.xticks(x, years)
+sns.set_style("whitegrid")
+sns.set_palette([pastel_blue, pastel_red])
 
-plt.title('Proportion of Male and Female Artists by Year')
-plt.legend()
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Year', y='Proportion', hue='Gender', data=data)
 
+plt.title('Proportion of Male and Female Artists by Year', fontsize=16, pad=20)
+plt.xlabel('Year', fontsize=12)
+plt.ylabel('Proportion', fontsize=12)
+plt.legend(title='Gender', title_fontsize='12', fontsize='10')
+
+plt.tight_layout()
 plt.show()
 
 # comparing longevity of #1 songs between years
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
-ax1.hist(billboard_df_2019[billboard_df_2019['peak_position'] == 1]['weeks_on_chart'], 
-         bins=15, color='red', edgecolor='black', alpha=0.7, density=True)
-ax1.set_title("Weeks on Chart for #1 Hits (2019)")
+bin_edges = np.linspace(0, 55, 16)
+
+ax1.hist(billboard_df_1969[billboard_df_1969['peak_position'] == 1]['weeks_on_chart'], 
+         bins=bin_edges, color='blue', edgecolor='black', alpha=0.7, density=True)
+ax1.set_title("Weeks on Chart for #1 Hits (1969)")
 ax1.set_xlabel("Weeks on Chart")
 ax1.set_ylabel("Density")
 ax1.set_xlim(0, 55)
+ax1.set_ylim(0, 0.08)
 
-ax2.hist(billboard_df_1969[billboard_df_1969['peak_position'] == 1]['weeks_on_chart'], 
-         bins=15, color='blue', edgecolor='black', alpha=0.7, density=True)
-ax2.set_title("Weeks on Chart for #1 Hits (1969)")
+# Plot for 2019 data in the second subplot
+ax2.hist(billboard_df_2019[billboard_df_2019['peak_position'] == 1]['weeks_on_chart'], 
+         bins=bin_edges, color='red', edgecolor='black', alpha=0.7, density=True)
+ax2.set_title("Weeks on Chart for #1 Hits (2019)")
 ax2.set_xlabel("Weeks on Chart")
 ax2.set_ylabel("Density")
 ax2.set_xlim(0, 55)
+ax2.set_ylim(0, 0.08)
 
 plt.tight_layout()
 plt.show()
