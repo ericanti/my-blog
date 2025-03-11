@@ -285,6 +285,9 @@ plt.ylabel('Proportion', fontsize=12)
 plt.legend(title='Mood', title_fontsize='12', fontsize='10')
 
 plt.tight_layout()
+
+plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/happy_proportion.png')
+
 plt.show()
 
 # comparing proportion of male vs female artists
@@ -320,6 +323,9 @@ plt.ylabel('Proportion', fontsize=12)
 plt.legend(title='Gender', title_fontsize='12', fontsize='10')
 
 plt.tight_layout()
+
+plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/gender_proportion.png')
+
 plt.show()
 
 # comparing longevity of #1 songs between years
@@ -346,4 +352,7 @@ ax2.set_xlim(0, 55)
 ax2.set_ylim(0, 0.08)
 
 plt.tight_layout()
+
+plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/weeks_on_chart.png')
+
 plt.show()
