@@ -245,12 +245,12 @@ billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-the
 billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969_features.csv')
 
 #check length of dataframes
-len(billboard_df_1969)
-len(billboard_df_2019)
+print(f"Number of songs from 1969: {len(billboard_df_1969)}")
+print(f"Number of songs from 2019: {len(billboard_df_2019)}")
 
 # comparing soung loudness
-billboard_df_2019['loudness'].mean()
-billboard_df_1969['loudness'].mean()
+print(f"Mean loudness coefficient in 1969: {billboard_df_1969['loudness'].mean()}")
+print(f"Mean loudness coefficient in 2019: {billboard_df_2019['loudness'].mean()}")
 
 # comparing happy vs non-happy songs
 
@@ -332,27 +332,43 @@ plt.show()
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
-bin_edges = np.linspace(0, 55, 16)
+# Define shared bin edges for both histograms
+bin_edges = np.linspace(0, 60, 11)  # 15 bins from 0 to 55
 
-ax1.hist(billboard_df_1969[billboard_df_1969['peak_position'] == 1]['weeks_on_chart'], 
+# Filter for songs in the top 5 and select the week with the highest 'weeks_on_chart'
+top_5_1969 = (
+    billboard_df_1969[billboard_df_1969['peak_position'].between(1, 5)]
+    .sort_values('weeks_on_chart', ascending=False)
+    .drop_duplicates(subset='mbid')  # Keep only the row with max weeks_on_chart per song
+)
+
+top_5_2019 = (
+    billboard_df_2019[billboard_df_2019['peak_position'].between(1, 5)]
+    .sort_values('weeks_on_chart', ascending=False)
+    .drop_duplicates(subset='mbid')  # Keep only the row with max weeks_on_chart per song
+)
+
+# Plot for 1969 data in the first subplot
+ax1.hist(top_5_1969['weeks_on_chart'], 
          bins=bin_edges, color='blue', edgecolor='black', alpha=0.7, density=True)
-ax1.set_title("Weeks on Chart for #1 Hits (1969)")
+ax1.set_title("Weeks on Chart for Top 5 Songs (1969)")
 ax1.set_xlabel("Weeks on Chart")
 ax1.set_ylabel("Density")
-ax1.set_xlim(0, 55)
-ax1.set_ylim(0, 0.08)
+ax1.set_xlim(0, 60)
+ax1.set_ylim(0, 0.15)
 
 # Plot for 2019 data in the second subplot
-ax2.hist(billboard_df_2019[billboard_df_2019['peak_position'] == 1]['weeks_on_chart'], 
+ax2.hist(top_5_2019['weeks_on_chart'], 
          bins=bin_edges, color='red', edgecolor='black', alpha=0.7, density=True)
-ax2.set_title("Weeks on Chart for #1 Hits (2019)")
+ax2.set_title("Weeks on Chart for Top 5 Songs (2019)")
 ax2.set_xlabel("Weeks on Chart")
 ax2.set_ylabel("Density")
-ax2.set_xlim(0, 55)
-ax2.set_ylim(0, 0.08)
+ax2.set_xlim(0, 60)
+ax2.set_ylim(0, 0.15)
 
 plt.tight_layout()
 
-plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/weeks_on_chart.png')
+# Save the plot
+plt.savefig('C:/Users/erica/STAT386/blog/another-stat386-theme/assets/img/weeks_on_chart_top5_max.png')
 
 plt.show()
