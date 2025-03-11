@@ -15,8 +15,7 @@ Here is a link to a Google Colab notebook with the code used in this tutorial: <
 
 **Learning Goals**
 
-- The basics of API usage (particularly MusicBrainz and AcousticBrainz)
-- How to set up a loop to collect a large dataset using an API
+- The basics of API usage (particularly the MusicBrainz and AcousticBrainz APIs)
 - How the most popular songs' acoustic features have changed since 1969
 
 ## What are people listening to?
@@ -33,7 +32,9 @@ print(f"2019: {billboard_df_2019['song'][0]} by {billboard_df_2019['artist'][0]}
 ```
 
 output: 
+
 `2019: Thank U, Next by Ariana Grande`
+
 `1969: I Heard It Through The Grapevine by Marvin Gaye`
 
 Ah yes, one talking about their ex and the other of hearing rumors through the grapevine. Truly, the Billboard Hot 100 has always been the ultimate melting pot of everything gossip related!
@@ -86,9 +87,9 @@ With the function working, we can create a for loop to extract the MBID of every
 
 **Note: ** the MusicBrainz API has a rate limit of 10 requests per every 10 seconds, in our code we use a sleep timer of 1.5 just to be safe. Remember to not exceed the rate limit or you will be banned temporarily (or even permanently).
 
-## How to Use the AcousticBrainz API to Extract Song Features
+## Extracting Song Features
 
-Finally, we can start extracting the acoustic features of each individual song using the AcousticBrainz API. We define a function called `get_song_features`.While this is a lengthy function, the most important part to understand is that we take an MBID as our input, and we fetch the features based on their level using separate links. Low level features are more unambiguous such as key signature, BPM, while high level features are more up for interpretation. These could be things such as dancability, energy, or loudness. These features are being computed by a separate algorithm. Check the details for all features <a href="https://acousticbrainz.org/data" target="_blank">here</a>.
+Finally, we can start extracting the acoustic features of each individual song using the AcousticBrainz API. We define a function called `get_song_features`. While this is a lengthy function, the most important part to understand is that we take an MBID as our input, and we fetch the features based on their level using separate links. Low level features are more unambiguous such as key signature, BPM, while high level features are more up for interpretation. These could be things such as dancability, energy, or loudness. These features are being computed by a separate algorithm. Check the details for all features <a href="https://acousticbrainz.org/data" target="_blank">here</a>.
 
 Let's check out the features for Mariah Carrey's 'All I Want For Christmas Is You':
 

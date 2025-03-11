@@ -243,6 +243,16 @@ billboard_df_1969.to_csv('billboard1969_features.csv', index=False)
 billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard2019_features.csv')
 billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969_features.csv')
 
+#check length of dataframes
+len(billboard_df_1969)
+len(billboard_df_2019)
+
+# comparing soung loudness
+billboard_df_2019['loudness'].mean()
+billboard_df_1969['loudness'].mean()
+
+# comparing happy vs non-happy songs
+
 prop_happy_2019 = billboard_df_2019['mood_happy'].value_counts()['happy'] / billboard_df_2019['mood_happy'].value_counts().sum()
 prop_not_happy_2019 = 1 - prop_happy_2019
 
@@ -250,75 +260,64 @@ prop_happy_1969 = billboard_df_1969['mood_happy'].value_counts()['happy'] / bill
 prop_not_happy_1969 = 1 - prop_happy_1969
 
 years = ['1969', '2019']
-happy_proportions = [prop_happy_1969, prop_happy_2019]  # Proportion of happy songs
-not_happy_proportions = [prop_not_happy_1969, prop_not_happy_2019]  # Proportion of not happy songs
+happy_proportions = [prop_happy_1969, prop_happy_2019]
+not_happy_proportions = [prop_not_happy_1969, prop_not_happy_2019]
 
-# Create stacked bar plot
-x = np.arange(len(years))  # Positions for bars
-width = 0.5  # Width of bars
+x = np.arange(len(years))
+width = 0.5
 
 plt.bar(x, happy_proportions, width, label='Happy', color='yellow')
 plt.bar(x, not_happy_proportions, width, bottom=happy_proportions, label='Not Happy', color='blue')
 
-# Set x-axis labels
 plt.xticks(x, years)
 
-# Add a title and legend
 plt.title('Proportion of Happy and Not Happy Songs by Year')
 plt.legend()
 
-# Display the plot
 plt.show()
+
+# comparing proportion of male vs female artists
 
 prop_male_2019 = billboard_df_2019['gender'].value_counts()['male'] / billboard_df_2019['gender'].value_counts().sum()
 prop_female_2019 = billboard_df_2019['gender'].value_counts()['female'] / billboard_df_2019['gender'].value_counts().sum()
 
-# Calculate proportions for gender in 1969
 prop_male_1969 = billboard_df_1969['gender'].value_counts()['male'] / billboard_df_1969['gender'].value_counts().sum()
 prop_female_1969 = billboard_df_1969['gender'].value_counts()['female'] / billboard_df_1969['gender'].value_counts().sum()
 
-# Reverse the order of years and corresponding proportions
 years = ['1969', '2019']
 male_proportions = [prop_male_1969, prop_male_2019]
 female_proportions = [prop_female_1969, prop_female_2019]
 
-# Create stacked bar plot
-x = np.arange(len(years))  # Positions for bars
-width = 0.5  # Width of bars
+x = np.arange(len(years))
+width = 0.5 
 
 plt.bar(x, male_proportions, width, label='Male', color='blue')
 plt.bar(x, female_proportions, width, bottom=male_proportions, label='Female', color='pink')
 
-# Set x-axis labels
 plt.xticks(x, years)
 
-# Add a title and legend
 plt.title('Proportion of Male and Female Artists by Year')
 plt.legend()
 
-# Display the plot
 plt.show()
 
-billboard_df_2019[billboard_df_2019['peak_position'] == 1]['weeks_on_chart']
+# comparing longevity of #1 songs between years
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
-# 2019 Data
 ax1.hist(billboard_df_2019[billboard_df_2019['peak_position'] == 1]['weeks_on_chart'], 
          bins=15, color='red', edgecolor='black', alpha=0.7, density=True)
 ax1.set_title("Weeks on Chart for #1 Hits (2019)")
 ax1.set_xlabel("Weeks on Chart")
 ax1.set_ylabel("Density")
-ax1.set_xlim(0, 55)  # Set x-axis limit to ensure consistent scale
+ax1.set_xlim(0, 55)
 
-# 1969 Data
 ax2.hist(billboard_df_1969[billboard_df_1969['peak_position'] == 1]['weeks_on_chart'], 
          bins=15, color='blue', edgecolor='black', alpha=0.7, density=True)
 ax2.set_title("Weeks on Chart for #1 Hits (1969)")
 ax2.set_xlabel("Weeks on Chart")
 ax2.set_ylabel("Density")
-ax2.set_xlim(0, 55)  # Set x-axis limit to ensure consistent scale
+ax2.set_xlim(0, 55)
 
-# Adjust layout and show plot
 plt.tight_layout()
 plt.show()
