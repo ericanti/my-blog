@@ -123,3 +123,50 @@ ax2.set_ylim(0, 0.15)
 plt.tight_layout()
 
 plt.show()
+
+# Define mapping from genre codes to full names
+genre_label_map = {
+    'cla': 'Classical',
+    'dan': 'Dance/Electronic',
+    'hip': 'Hip-Hop',
+    'jaz': 'Jazz',
+    'pop': 'Pop',
+    'rhy': 'Rhythm & Blues (R&B)',
+    'roc': 'Rock',
+    'spe': 'Speech'
+}
+
+# Add a new column with the full genre names
+billboard_df_1969['genre_full'] = billboard_df_1969['genre'].map(genre_label_map).fillna(billboard_df_1969['genre'])
+billboard_df_2019['genre_full'] = billboard_df_2019['genre'].map(genre_label_map).fillna(billboard_df_2019['genre'])
+
+# Calculate genre proportions for each year using the new full label column
+genre_1969 = billboard_df_1969['genre_full'].value_counts(normalize=True).reset_index()
+genre_1969.columns = ['Genre', 'Proportion']
+genre_1969['Year'] = '1969'
+
+genre_2019 = billboard_df_2019['genre_full'].value_counts(normalize=True).reset_index()
+genre_2019.columns = ['Genre', 'Proportion']
+genre_2019['Year'] = '2019'
+
+# Combine for plotting
+genre_df = pd.concat([genre_1969, genre_2019], ignore_index=True)
+
+# Set color palette
+pastel_green = '#A8E6CF'
+pastel_purple = '#B39DDB'
+sns.set_palette([pastel_green, pastel_purple])
+sns.set_style("whitegrid")
+
+plt.figure(figsize=(12, 7))
+sns.barplot(x='Genre', y='Proportion', hue='Year', data=genre_df)
+
+plt.title('Genre Distribution by Year', fontsize=16, pad=20)
+plt.xlabel('Genre', fontsize=12)
+plt.ylabel('Proportion', fontsize=12)
+plt.legend(title='Year', title_fontsize='12', fontsize='10')
+plt.xticks(rotation=30, ha='right')
+
+plt.tight_layout()
+plt.savefig('genre_distribution.png', dpi=300, bbox_inches='tight')
+plt.show()
