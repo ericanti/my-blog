@@ -8,8 +8,8 @@ billboard_df_2019 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-the
 billboard_df_1969 = pd.read_csv('C:/Users/erica/STAT386/blog/another-stat386-theme/post2/billboard1969_features.csv')
 
 # add year column to each dataframe
-billboard_df_2019['Year'] = 2019
-billboard_df_1969['Year'] = 1969
+billboard_df_2019['year'] = 2019
+billboard_df_1969['year'] = 1969
 
 # merge the dataframes
 merged_data = pd.concat([billboard_df_2019, billboard_df_1969])
@@ -140,6 +140,8 @@ genre_label_map = {
 billboard_df_1969['genre_full'] = billboard_df_1969['genre'].map(genre_label_map).fillna(billboard_df_1969['genre'])
 billboard_df_2019['genre_full'] = billboard_df_2019['genre'].map(genre_label_map).fillna(billboard_df_2019['genre'])
 
+merged_data['genre_full'] = merged_data['genre'].map(genre_label_map).fillna(merged_data['genre'])
+
 # Calculate genre proportions for each year using the new full label column
 genre_1969 = billboard_df_1969['genre_full'].value_counts(normalize=True).reset_index()
 genre_1969.columns = ['Genre', 'Proportion']
@@ -168,5 +170,54 @@ plt.legend(title='Year', title_fontsize='12', fontsize='10')
 plt.xticks(rotation=30, ha='right')
 
 plt.tight_layout()
-plt.savefig('genre_distribution.png', dpi=300, bbox_inches='tight')
+# plt.savefig('genre_distribution.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+# ---------------------------
+
+plt.figure(figsize=(10, 7))
+sns.scatterplot(
+    data=merged_data,
+    x='peak_position',
+    y='weeks_on_chart',
+    hue='mood_happy',
+    alpha=0.7,
+    palette='Set2'
+)
+plt.title('Peak Position vs. Weeks on Chart (colored by Mood)')
+plt.xlabel('Peak Position (1 = best)')
+plt.ylabel('Weeks on Chart')
+plt.gca().invert_xaxis()
+plt.legend(title='Mood')
+plt.tight_layout()
+plt.show()
+
+
+
+
+fig, axes = plt.subplots(1, 2, figsize=(16, 7), sharey=True)
+years = [1969, 2019]
+
+for i, year in enumerate(years):
+    data_year = merged_data[merged_data['year'] == year]
+    sns.scatterplot(
+        data=data_year,
+        x='peak_position',
+        y='weeks_on_chart',
+        hue='mood_happy',
+        alpha=0.7,
+        palette='Set2',
+        ax=axes[i]
+    )
+    axes[i].set_title(f'Peak Position vs. Weeks on Chart ({year})', fontsize=14)
+    axes[i].set_xlabel('Peak Position (1 = best)')
+    if i == 0:
+        axes[i].set_ylabel('Weeks on Chart')
+    else:
+        axes[i].set_ylabel('')
+    axes[i].invert_xaxis()  # 1 (best) on the left
+    axes[i].legend(title='Mood')
+
+plt.tight_layout()
+# plt.savefig('peak_position_vs_weeks_on_chart.png', dpi=300, bbox_inches='tight')
 plt.show()
