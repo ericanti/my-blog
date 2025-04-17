@@ -21,7 +21,7 @@ Welcome back! If you’ve been following along, you know we’ve been digging in
 
 ### Recap: Setting the Stage
 
-In our [last post](https://ericanti.github.io/my-blog/blog/api-usage/), we covered how to fetch acoustic features of Billboard Hot 100 hits from both 1969 and 2019 using API calls. We also introduced some basic exploratory data analysis (EDA) techniques. This time, we’re going deeper—looking at how features like tempo, key, and energy relate to chart performance, and how these features differ across genres and decades.
+In our <a href="https://ericanti.github.io/my-blog/blog/api-usage/" target="_blank">last post</a>, we covered how to fetch acoustic features of Billboard Hot 100 hits from both 1969 and 2019 using API calls. We also introduced some basic exploratory data analysis (EDA) techniques. This time, we’re going deeper—looking at how features like tempo, key, and energy relate to chart performance, and how these features differ across genres and decades.
 
 ---
 
@@ -57,7 +57,7 @@ Now, let’s see how mood and chart success intersect:
 
 ### Try It Yourself: Interactive Data App
 
-We built a [Streamlit app](https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/) to let you explore these trends hands-on.
+We built a <a href="https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/" target="_blank">Streamlit app</a> to let you explore these trends hands-on.
 
 #### Getting Started
 
@@ -154,9 +154,9 @@ Try combining filters and color options to uncover non-obvious patterns—like w
 
 ### Want to Dig Deeper?
 
-- [Original API and EDA post](https://ericanti.github.io/my-blog/blog/api-usage/)
-- [Streamlit app](https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/) for hands-on exploration
-- GitHub repository for the and data: [GitHub Repo](https://github.com/ericanti/api-usage)
+- <a href="https://ericanti.github.io/my-blog/blog/api-usage/" target="_blank">Original API and EDA post</a>
+- <a href="https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/" target="_blank">Streamlit app</a> for hands-on exploration
+- GitHub repository for the and data: <a href="https://github.com/ericanti/api-usage" target="_blank">GitHub Repo</a>
 
 ---
 
