@@ -155,7 +155,7 @@ Try combining filters and color options to uncover non-obvious patterns—like w
 
 - <a href="https://ericanti.github.io/my-blog/blog/api-usage/" target="_blank">Original API and EDA post</a>
 - <a href="https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/" target="_blank">Streamlit app</a> for hands-on exploration
-- GitHub repository for the data: <a href="https://github.com/ericanti/api-usage" target="_blank">GitHub Repo</a>
+- GitHub repository for the code and data: <a href="https://github.com/ericanti/post3-streamlit" target="_blank">GitHub Repo</a>
 
 ---
 
