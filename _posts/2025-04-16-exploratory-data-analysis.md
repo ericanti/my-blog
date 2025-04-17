@@ -10,7 +10,7 @@ Welcome back! If you’ve been following along, you know we’ve been digging in
 
 ---
 
-## What You’ll Find in This Post
+### What You’ll Find in This Post
 
 - A quick recap of our data sources and previous findings
 - Visual breakdowns of genre and mood shifts from 1969 to 2019
@@ -19,20 +19,20 @@ Welcome back! If you’ve been following along, you know we’ve been digging in
 
 ---
 
-## Recap: Setting the Stage
+### Recap: Setting the Stage
 
 In our [last post](https://ericanti.github.io/my-blog/blog/api-usage/), we covered how to fetch acoustic features of Billboard Hot 100 hits from both 1969 and 2019 using API calls. We also introduced some basic exploratory data analysis (EDA) techniques. This time, we’re going deeper—looking at how features like tempo, key, and energy relate to chart performance, and how these features differ across genres and decades.
 
 ---
 
-## How Has Music Changed Over Time?
+### How Has Music Changed Over Time?
 
-### Key Takeaways
+#### Key Takeaways
 
 - Older hits (1969) tended to be happier and featured more male artists.
 - Newer hits (2019) show greater artist diversity and lean sadder in mood.
 
-### Genre Evolution
+#### Genre Evolution
 
 Let’s visualize how genre popularity has shifted:
 
@@ -42,7 +42,7 @@ Let’s visualize how genre popularity has shifted:
 - Jazz and classical genres have faded from the charts.
 - Pop and hip-hop have surged, reflecting cultural shifts and new artist influences.
 
-### Mood on the Charts
+#### Mood on the Charts
 
 Now, let’s see how mood and chart success intersect:
 
@@ -55,11 +55,11 @@ Now, let’s see how mood and chart success intersect:
 
 ---
 
-## Try It Yourself: Interactive Data App
+### Try It Yourself: Interactive Data App
 
 We built a [Streamlit app](https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/) to let you explore these trends hands-on.
 
-### Getting Started
+#### Getting Started
 
 When you open the app, you’ll see a sidebar with filters:
 
@@ -71,7 +71,7 @@ There’s also a handy “How To Use” section in the sidebar for quick guidanc
 
 ---
 
-## 📊 Overview Tab
+### 📊 Overview Tab
 
 This tab gives you a high-level summary of your filtered dataset, helping you spot broad trends at a glance.
 
@@ -88,7 +88,7 @@ Adjust the filters to focus on specific years or genres and watch how the genre 
 
 ---
 
-## 😊 Mood Analysis Tab
+### 😊 Mood Analysis Tab
 
 This tab lets you dig into the emotional tone of chart-topping music.
 
@@ -107,7 +107,7 @@ Switch between views to answer questions like:
 
 ---
 
-## 👫 Gender Trends Tab
+### 👫 Gender Trends Tab
 
 This tab highlights artist representation and success across genders.
 
@@ -124,7 +124,7 @@ Use these insights to discuss broader industry trends, such as increasing divers
 
 ---
 
-## 🎵 Custom Analysis Tab
+### 🎵 Custom Analysis Tab
 
 This is your “sandbox” for creative exploration.
 
@@ -144,7 +144,7 @@ Try combining filters and color options to uncover non-obvious patterns—like w
 
 ---
 
-## How to Get the Most Out of the App
+### How to Get the Most Out of the App
 
 1. **Adjust Filters:** Narrow down to specific years, genres, or chart longevity to spot patterns.
 2. **Switch Tabs:** Each tab offers a different lens on the data—try them all!
@@ -152,7 +152,7 @@ Try combining filters and color options to uncover non-obvious patterns—like w
 
 ---
 
-## Want to Dig Deeper?
+### Want to Dig Deeper?
 
 - [Original API and EDA post](https://ericanti.github.io/my-blog/blog/api-usage/)
 - [Streamlit app](https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/) for hands-on exploration
@@ -160,7 +160,7 @@ Try combining filters and color options to uncover non-obvious patterns—like w
 
 ---
 
-## Wrapping Up
+### Wrapping Up
 
 The world of chart-topping music is always evolving. By exploring data on song features, genres, moods, and artist demographics, we can uncover the trends that define each era. Use the interactive app to find your own insights—and let us know what surprises you!
 
