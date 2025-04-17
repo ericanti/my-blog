@@ -16,7 +16,6 @@ Welcome back! If you’ve been following along, you know we’ve been digging in
 - Visual breakdowns of genre and mood shifts from 1969 to 2019
 - A hands-on walkthrough of our interactive Streamlit app
 - Tips on how to explore the data for your own insights
-- Live links to resources and further reading
 
 ---
 
@@ -74,34 +73,74 @@ There’s also a handy “How To Use” section in the sidebar for quick guidanc
 
 ## 📊 Overview Tab
 
+This tab gives you a high-level summary of your filtered dataset, helping you spot broad trends at a glance.
+
 **What you’ll see:**
-- **Total Songs Analyzed** and **Average Weeks on Chart** for your selected filters.
-- **Genre Proportions by Year:** Instantly compare how genres stack up in each era.
+- **Total Songs Analyzed:** Instantly see how many songs match your current filters. This helps you gauge the size of your data slice and ensures your analysis is focused.
+- **Average Weeks on Chart:** Find out how long, on average, songs stay on the Billboard Hot 100. This can reveal how competitive the music landscape is in different years or genres.
+- **Genre Proportions by Year:** Compare how popular genres have changed over time. For example:
+  - Is pop dominating in recent years?
+  - Did rock or jazz have a bigger share in the past?
+  - Are there any emerging genres gaining traction?
+
+*How to use it:*  
+Adjust the filters to focus on specific years or genres and watch how the genre proportions shift. This is a great way to spot macro trends, such as the rise of hip-hop or the decline of classical hits on the charts.
 
 ---
 
 ## 😊 Mood Analysis Tab
 
+This tab lets you dig into the emotional tone of chart-topping music.
+
 **Choose your view:**
-- **Year Comparison:** See what fraction of hits were “happy” in each year.
-- **Genre Breakdown:** Drill down to see which genres are happiest (or saddest) by year.
+- **Year Comparison:** See the proportion of “happy” vs. “sad” songs each year.  
+  - Are chart hits getting sadder or happier over time?
+  - Does a particular year stand out as unusually upbeat or melancholy?
+- **Genre Breakdown:** Explore which genres are associated with happier or sadder songs.
+  - Is pop generally happier than hip-hop?
+  - Do certain genres shift in mood over the decades?
+
+*How to use it:*  
+Switch between views to answer questions like:  
+- Has the mood of top hits changed with cultural events or trends?
+- Are there genres that consistently produce more uplifting (or more somber) hits?
 
 ---
 
 ## 👫 Gender Trends Tab
 
+This tab highlights artist representation and success across genders.
+
 **Explore:**
-- **Gender Proportions by Year:** How has artist gender representation changed?
-- **Weeks on Chart by Gender:** Who’s staying on the charts longer?
+- **Gender Proportions by Year:** Track how the gender balance among charting artists has shifted.
+  - Are there more female or male artists in recent years?
+  - Is there a rise in mixed-gender collaborations or non-binary representation?
+- **Weeks on Chart by Gender:** See which gender groups have the longest chart presence.
+  - Do male, female, or mixed groups tend to have more staying power?
+  - Has this changed over time?
+
+*How to use it:*  
+Use these insights to discuss broader industry trends, such as increasing diversity or persistent disparities. Try comparing different genres or decades to see where gender gaps are narrowing or widening.
 
 ---
 
 ## 🎵 Custom Analysis Tab
 
+This is your “sandbox” for creative exploration.
+
 **Get creative:**
-- Pick any two features (like “peak position” vs. “weeks on chart”) for the axes.
-- Color points by mood, gender, or year.
-- Optionally split the plot by year for side-by-side comparison.
+- Pick any two features (e.g., “peak position” vs. “weeks on chart”, “bpm” vs. “loudness”) to see how they relate.
+- Color by mood, gender, or year to add another dimension to your analysis.
+- Split by year for side-by-side comparisons.
+
+*How to use it:*  
+Ask your own questions, such as:
+- Do happier songs tend to chart higher?
+- Is there a relationship between tempo (bpm) and chart longevity?
+- Are there gender or genre differences in how long songs stay on the charts?
+
+**Tip:**  
+Try combining filters and color options to uncover non-obvious patterns—like whether sad songs in pop last longer than happy songs in rock, or if 2019’s hits are generally louder than those from 1969.
 
 ---
 
@@ -125,6 +164,6 @@ There’s also a handy “How To Use” section in the sidebar for quick guidanc
 
 The world of chart-topping music is always evolving. By exploring data on song features, genres, moods, and artist demographics, we can uncover the trends that define each era. Use the interactive app to find your own insights—and let us know what surprises you!
 
-*What trends do you see? Share your findings or questions in the comments below!*
+*What trends did you find? Share your findings or questions in the comments below!*
 
 ---
