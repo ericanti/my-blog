@@ -115,7 +115,7 @@ This tab highlights artist representation and success across genders.
 - **Gender Proportions by Year:** Track how the gender balance among charting artists has shifted.
   - Are there more female or male artists in recent years?
 - **Weeks on Chart by Gender:** See which gender groups have the longest chart presence.
-  - Do males or females seem to have staying power on the Hot 100?
+  - Do males or females seem to have staying power on the Billboard Hot 100?
   - Has this changed over time?
 
 *How to use it:*  
