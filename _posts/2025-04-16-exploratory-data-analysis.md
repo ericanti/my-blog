@@ -51,7 +51,7 @@ Now, let’s see how mood and chart success intersect:
 **Observations:**
 - In 2019, top-charting songs tend to be sadder, especially those with longer chart runs.
 - In 1969, most hits were happier, but interestingly, the #1 songs were often sad.
-- This pattern suggests that emotional resonance, not just cheerfulness, drives a song’s staying power.
+- This pattern could suggest that emotional resonance, not just cheerfulness, drives a song’s staying power.
 
 ---
 
@@ -95,7 +95,7 @@ This tab lets you dig into the emotional tone of chart-topping music.
 **Choose your view:**
 - **Year Comparison:** See the proportion of “happy” vs. “sad” songs each year.  
   - Are chart hits getting sadder or happier over time?
-  - Does a particular year stand out as unusually upbeat or melancholy?
+  - Does a particular year stand out as unusually upbeat or melancholic?
 - **Genre Breakdown:** Explore which genres are associated with happier or sadder songs.
   - Is pop generally happier than hip-hop?
   - Do certain genres shift in mood over the decades?
@@ -114,9 +114,8 @@ This tab highlights artist representation and success across genders.
 **Explore:**
 - **Gender Proportions by Year:** Track how the gender balance among charting artists has shifted.
   - Are there more female or male artists in recent years?
-  - Is there a rise in mixed-gender collaborations or non-binary representation?
 - **Weeks on Chart by Gender:** See which gender groups have the longest chart presence.
-  - Do male, female, or mixed groups tend to have more staying power?
+  - Do males or females seem to have staying power on the Hot 100?
   - Has this changed over time?
 
 *How to use it:*  
@@ -156,7 +155,7 @@ Try combining filters and color options to uncover non-obvious patterns—like w
 
 - <a href="https://ericanti.github.io/my-blog/blog/api-usage/" target="_blank">Original API and EDA post</a>
 - <a href="https://ericanti-post3-streamlit-main-bzlgmr.streamlit.app/" target="_blank">Streamlit app</a> for hands-on exploration
-- GitHub repository for the and data: <a href="https://github.com/ericanti/api-usage" target="_blank">GitHub Repo</a>
+- GitHub repository for the data: <a href="https://github.com/ericanti/api-usage" target="_blank">GitHub Repo</a>
 
 ---
 
